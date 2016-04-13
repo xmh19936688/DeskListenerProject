@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <receiver android:name=".MyWidget">
+        <receiver android:name=".widget.DeskWidget">
             <intent-filter>
                 <action
                     android:name="android.appwidget.action.APPWIDGET_UPDATE"
@@ -21,10 +21,10 @@
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/example_appwidget_info"
+                android:resource="@xml/desk_appwidget_info"
                 />
         </receiver>
-        <service android:name=".MyService"/>
+        <service android:name=".service.RecordService"/>
 
     </application>
 

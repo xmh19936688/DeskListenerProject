@@ -2,5 +2,5 @@
 	android:minWidth="10dp"
 	android:minHeight="10dp"
 	android:updatePeriodMillis="0"
-	android:initialLayout="@layout/example_appwidget">
+	android:initialLayout="@layout/layout_desk_widget">
 </appwidget-provider>
