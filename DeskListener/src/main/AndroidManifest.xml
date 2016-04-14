@@ -2,30 +2,47 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xmh.deskcontrol">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
+    <!-- Bmob权限start -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+
+    <!-- Bmob权限end -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <receiver android:name=".widget.DeskWidget">
             <intent-filter>
-                <action
-                    android:name="android.appwidget.action.APPWIDGET_UPDATE"
-                    />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/desk_appwidget_info"
-                />
+                android:resource="@xml/desk_appwidget_info" />
         </receiver>
-        <service android:name=".service.RecordService"/>
 
+        <receiver android:name=".receiver.ConnectionChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.RecordService" />
+        <service
+            android:name=".service.UploadService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

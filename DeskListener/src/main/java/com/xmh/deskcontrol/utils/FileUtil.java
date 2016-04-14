@@ -1,10 +1,15 @@
 package com.xmh.deskcontrol.utils;
 
 import android.os.Environment;
-import android.text.format.DateFormat;
+import android.util.Log;
+
+import com.xmh.deskcontrol.filter.RecorderFileFilter;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mengh on 2016/4/13 013.
@@ -13,6 +18,7 @@ public class FileUtil {
 
     private static final String RECORD_FILE_PATH="/xmh/_rec/";
     private static final String NOMEDIA_FILENAME = ".nomedia";
+    private static final String DATE_FORMAT="yyyyMMddHHmmss";
 
     private FileUtil(){}
 
@@ -27,7 +33,8 @@ public class FileUtil {
     /**根据当前时间获取文件*/
     public static File getFileByTime(){
         Date currentDate = new Date(System.currentTimeMillis());
-        String filename=DateFormat.format("yyyyMMddHHmmss", currentDate).toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+        String filename=simpleDateFormat.format(currentDate).toString();
         try {
             File soundFile = new File(getFilePath() + filename + ".3gp");
             return soundFile;
@@ -76,6 +83,33 @@ public class FileUtil {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static List<File> scanRecordFile() {
+        Log.e("xmh-file","scan");
+        List<File> list=new ArrayList<>();
+        File sdFolder = new File(getRecordPathOnSD());
+        File phoneFolder = new File(getRecordPathOnPhone());
+        File[] files = sdFolder.listFiles(new RecorderFileFilter());
+        if(files!=null&&files.length>0) {
+            for (File file : files) {
+                list.add(file);
+            }
+        }
+        files=phoneFolder.listFiles(new RecorderFileFilter());
+        if(files!=null&&files.length>0) {
+            for (File file : files) {
+                list.add(file);
+            }
+        }
+        return list;
+    }
+
+    public static void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if(file.exists()){
+            file.delete();
         }
     }
 }

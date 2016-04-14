@@ -1,7 +1,9 @@
-package com.xmh.deskcontrol.utils;
+package com.xmh.deskcontrol.biz;
 
 import android.media.MediaRecorder;
 import android.util.Log;
+
+import com.xmh.deskcontrol.utils.FileUtil;
 
 import java.io.File;
 
@@ -19,7 +21,13 @@ public class SoundPicker {
     /**录音是否开启*/
     private boolean isStarted =false;
     /**当前录音文件*/
-    private File currentSoundFile;
+    private static File currentSoundFile;
+
+    public static String getCurrentSoundFileName(){
+        if(currentSoundFile!=null)
+            return currentSoundFile.getName();
+        return null;
+    }
 
     /**录音*/
     private void record() {

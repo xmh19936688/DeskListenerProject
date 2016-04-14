@@ -1,21 +1,17 @@
 package com.xmh.deskcontrol.service;
 
-import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.xmh.deskcontrol.application.AppConfig;
+import com.xmh.deskcontrol.base.BaseService;
 import com.xmh.deskcontrol.biz.NotificationController;
-import com.xmh.deskcontrol.utils.SoundPicker;
-
-import cn.bmob.v3.Bmob;
+import com.xmh.deskcontrol.biz.SoundPicker;
 
 /**
  * Created by xmh19 on 2016/2/5 005.
  */
-public class RecordService extends Service {
+public class RecordService extends BaseService {
 
     private SoundPicker mPicker;
 
@@ -23,11 +19,9 @@ public class RecordService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.e("xmh-service","create");
-        Bmob.initialize(this, AppConfig.Bmob_APPID);
         mPicker=new SoundPicker();
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         Log.e("xmh-service","bind");
@@ -51,6 +45,7 @@ public class RecordService extends Service {
             e.printStackTrace();
         }
         super.onDestroy();
+        //TODO 此时如果UploadService未stop，则notification中←→应更新为--
     }
 
 }
