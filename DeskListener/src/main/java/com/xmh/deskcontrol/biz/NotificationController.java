@@ -2,11 +2,14 @@ package com.xmh.deskcontrol.biz;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.xmh.deskcontrol.R;
+import com.xmh.deskcontrol.service.RecordService;
 
 /**
  * Created by mengh on 2016/4/13 013.
@@ -44,6 +47,7 @@ public class NotificationController {
     /**初始化通知*/
     private static void initNotification(Context context) {
         view = new RemoteViews(context.getPackageName(), R.layout.layout_notification);
+        //region set ui layout
         if(isRecordServiceStarted) {
             view.setTextViewText(R.id.tv_going_left, "←");
             view.setTextViewText(R.id.tv_going_right, "→");
@@ -55,6 +59,13 @@ public class NotificationController {
             view.setTextViewText(R.id.tv_file_count, "·");
             view.setTextViewText(R.id.tv_upload_count, "·");
         }
+        //endregion
+        //region set view listener
+        Intent intent = new Intent();
+        intent.setAction(RecordService.ACTION_STOP_RECORD);
+        PendingIntent pendingIntent=PendingIntent.getBroadcast(mContext,0,intent,0);
+        view.setOnClickPendingIntent(R.id.iv_controll,pendingIntent);
+        //endregion
         mBuilder = new NotificationCompat.Builder(context);
         mBuilder.setContent(view)
                 .setSmallIcon(R.drawable.ic_launcher)//此项为必须
@@ -101,6 +112,9 @@ public class NotificationController {
 
     /**更新通知内容*/
     private static void updateNotification() {
+        if(mBuilder==null){
+            return;
+        }
         mBuilder.setContent(view);
         NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NOTIFICATION_ID, mBuilder.build());
