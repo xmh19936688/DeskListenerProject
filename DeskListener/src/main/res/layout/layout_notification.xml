@@ -15,7 +15,7 @@
     <TextView
         android:id="@+id/tv_going_left"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/iv_controll"
         android:gravity="center"
@@ -27,7 +27,7 @@
     <TextView
         android:id="@+id/tv_going_right"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/iv_controll"
         android:gravity="center"
@@ -39,24 +39,24 @@
     <TextView
         android:id="@+id/tv_file_count"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:textSize="60dp"
-        android:text="0"
+        android:text="·"
         />
     <TextView
         android:id="@+id/tv_upload_count"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:textSize="60dp"
-        android:text="0"
+        android:text="·"
         />
 
 </RelativeLayout>

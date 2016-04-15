@@ -1,9 +1,11 @@
 package com.xmh.deskcontrol.biz;
 
+import android.content.Context;
 import android.media.MediaRecorder;
 import android.util.Log;
 
 import com.xmh.deskcontrol.utils.FileUtil;
+import com.xmh.deskcontrol.utils.UploadUtil;
 
 import java.io.File;
 
@@ -15,6 +17,7 @@ public class SoundPicker {
     /**每次录音持续时长*/
     private static final int TIME_PER_RECORD=30 * 1000;
 
+    private Context mContext;
     private MediaRecorder mRecorder;
     private ControlThread mThread;
 
@@ -22,6 +25,10 @@ public class SoundPicker {
     private boolean isStarted =false;
     /**当前录音文件*/
     private static File currentSoundFile;
+
+    public SoundPicker(Context context){
+        this.mContext=context;
+    }
 
     public static String getCurrentSoundFileName(){
         if(currentSoundFile!=null)
@@ -56,6 +63,8 @@ public class SoundPicker {
             mRecorder.release();
             mRecorder = null;
             Log.e("xmh-picker","reset");
+            //上传文件
+            UploadUtil.uploadFile(mContext,currentSoundFile.getAbsolutePath(),null);
         }
     }
 
@@ -95,8 +104,8 @@ public class SoundPicker {
             Log.e("xmh-picker","run");
             try {
                 while (isStarted) {
-                    Thread.sleep(TIME_PER_RECORD);
                     record();
+                    Thread.sleep(TIME_PER_RECORD);
                 }
             }catch (Exception e){
                 e.printStackTrace();

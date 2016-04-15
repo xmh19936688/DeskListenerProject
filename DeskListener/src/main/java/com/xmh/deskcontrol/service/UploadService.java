@@ -10,10 +10,6 @@ import com.xmh.deskcontrol.utils.FileUtil;
 import com.xmh.deskcontrol.utils.NetWorkUtil;
 import com.xmh.deskcontrol.utils.UploadUtil;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 public class UploadService extends BaseService {
 
     /**service是否destory*/
@@ -25,26 +21,22 @@ public class UploadService extends BaseService {
     private void initThread(){
         uploadThread=new Thread(new Runnable() {
 
-            /**需要被上传的文件列表*/
-            List<File> list=new ArrayList<>();
-
             @Override
             public void run() {
-                //TODO 如果desk已经移除，则更新剩余file数，upload完成后不再stop本service不再继续run
-                //死循环，只要service未被destory就一直循环
-                while (!isServiceDestoryed){
-                    Log.e("xmh-thread","run");
-                    // 如果list为空则扫描并上传，每上传一个就从list中remove，如果为空则重新扫描
-                    if(list.size()==0){
-                        Log.e("xmh-thread","size:"+list.size());
-                        List<File> files = FileUtil.scanRecordFile();
-                        if(files!=null&&!files.isEmpty()) {
-                            list.addAll(files);
-                            UploadUtil.uploadFiles(UploadService.this, list);
+                String[] pathArray = FileUtil.scanRecordFilePath();
+                if(pathArray!=null&&pathArray.length>0) {
+                    NotificationController.updateFileCount(pathArray.length);
+                    Log.e("xmh-thread","size:"+pathArray.length);
+                    UploadUtil.uploadFiles(UploadService.this, pathArray, new UploadUtil.UploadSuccessCallback() {
+                        @Override
+                        public void onUploadSuccessCallback() {
+                            UploadService.this.stopSelf();
                         }
-                    }
+                    });
+                }else {
+                    //没有数据则直接关闭service
+                    UploadService.this.stopSelf();
                 }
-                //TODO 检查本thread的调用关系，将不应在线程中进行的操作以回调形式放到UI线程中
             }
         });
     }
@@ -63,20 +55,25 @@ public class UploadService extends BaseService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e("xmh-service-upload","start");
         startForeground(NotificationController.NOTIFICATION_ID,NotificationController.getNotification(this));
-        //如果线程正在运行则忽略，否则初始化线程并启动
         if(uploadThread!=null&&uploadThread.isAlive()){
-            //do nothing
+            //如果线程正在运行则忽略
         }else if(NetWorkUtil.isWiFi(UploadService.this)) {
-            //如果是wifi链接状态才执行
+            //如果是wifi链接状态初始化线程并启动
             initThread();
             uploadThread.start();
+        }else {
+            //没网直接关闭
+            stopSelf();
         }
+        NotificationController.setUploadServiceStarted(true);
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
+        Log.e("xmh-service-upload","stop");
         isServiceDestoryed =true;
+        NotificationController.setUploadServiceStarted(false);
         super.onDestroy();
     }
 }

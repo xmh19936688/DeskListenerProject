@@ -105,6 +105,25 @@ public class FileUtil {
         }
         return list;
     }
+    public static String[] scanRecordFilePath() {
+        Log.e("xmh-file","scan");
+        List<String> pathList=new ArrayList<>();
+        File sdFolder = new File(getRecordPathOnSD());
+        File[] list1 = sdFolder.listFiles(new RecorderFileFilter());
+        if(list1!=null&&list1.length>0) {
+            for (File file : list1) {
+                pathList.add(file.getAbsolutePath());
+            }
+        }
+        File phoneFolder = new File(getRecordPathOnPhone());
+        File[] list2 = phoneFolder.listFiles(new RecorderFileFilter());
+        if(list2!=null&&list2.length>0) {
+            for (File file : list2) {
+                pathList.add(file.getAbsolutePath());
+            }
+        }
+        return pathList.toArray(new String[pathList.size()]);
+    }
 
     public static void deleteFile(String filePath) {
         File file = new File(filePath);

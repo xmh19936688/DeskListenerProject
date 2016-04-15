@@ -19,7 +19,7 @@ public class RecordService extends BaseService {
     public void onCreate() {
         super.onCreate();
         Log.e("xmh-service","create");
-        mPicker=new SoundPicker();
+        mPicker=new SoundPicker(RecordService.this);
     }
 
     @Override
@@ -33,6 +33,7 @@ public class RecordService extends BaseService {
         Log.e("xmh-service","start");
         mPicker.start();
         startForeground(NotificationController.NOTIFICATION_ID, NotificationController.getNotification(this));
+        NotificationController.setRecordServiceStarted(true);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -45,7 +46,7 @@ public class RecordService extends BaseService {
             e.printStackTrace();
         }
         super.onDestroy();
-        //TODO 此时如果UploadService未stop，则notification中←→应更新为--
+        NotificationController.setRecordServiceStarted(false);
     }
 
 }
