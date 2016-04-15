@@ -26,7 +26,7 @@ public class UploadService extends BaseService {
                 String[] pathArray = FileUtil.scanRecordFilePath();
                 if(pathArray!=null&&pathArray.length>0) {
                     NotificationController.updateFileCount(pathArray.length);
-                    Log.e("xmh-thread","size:"+pathArray.length);
+                    LogUtil.e("xmh-thread","size:"+pathArray.length);
                     UploadUtil.uploadFiles(UploadService.this, pathArray, new UploadUtil.UploadSuccessCallback() {
                         @Override
                         public void onUploadSuccessCallback() {
@@ -53,7 +53,7 @@ public class UploadService extends BaseService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.e("xmh-service-upload","start");
+        LogUtil.e("xmh-service-upload","start");
         startForeground(NotificationController.NOTIFICATION_ID,NotificationController.getNotification(this));
         if(uploadThread!=null&&uploadThread.isAlive()){
             //如果线程正在运行则忽略
@@ -71,7 +71,7 @@ public class UploadService extends BaseService {
 
     @Override
     public void onDestroy() {
-        Log.e("xmh-service-upload","stop");
+        LogUtil.e("xmh-service-upload","stop");
         isServiceDestoryed =true;
         NotificationController.setUploadServiceStarted(false);
         super.onDestroy();

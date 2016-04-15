@@ -87,7 +87,7 @@ public class FileUtil {
     }
 
     public static List<File> scanRecordFile() {
-        Log.e("xmh-file","scan");
+        LogUtil.e("xmh-file","scan");
         List<File> list=new ArrayList<>();
         File sdFolder = new File(getRecordPathOnSD());
         File phoneFolder = new File(getRecordPathOnPhone());
@@ -106,7 +106,7 @@ public class FileUtil {
         return list;
     }
     public static String[] scanRecordFilePath() {
-        Log.e("xmh-file","scan");
+        LogUtil.e("xmh-file","scan");
         List<String> pathList=new ArrayList<>();
         File sdFolder = new File(getRecordPathOnSD());
         File[] list1 = sdFolder.listFiles(new RecorderFileFilter());

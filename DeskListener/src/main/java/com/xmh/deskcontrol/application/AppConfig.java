@@ -6,4 +6,6 @@ package com.xmh.deskcontrol.application;
 public class AppConfig {
     /**BmobAppID*/
     public static final String Bmob_APPID="5e1699fc37cb674ae576e0dadbc75091";
+
+    public static final boolean isDebug=true;
 }

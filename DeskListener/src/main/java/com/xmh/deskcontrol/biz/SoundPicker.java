@@ -48,7 +48,7 @@ public class SoundPicker {
             mRecorder.setOutputFile(currentSoundFile.getAbsolutePath());
             mRecorder.prepare();
             mRecorder.start();
-            Log.e("xmh-picker","record");
+            LogUtil.e("xmh-picker","record");
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class SoundPicker {
             // 释放资源
             mRecorder.release();
             mRecorder = null;
-            Log.e("xmh-picker","reset");
+            LogUtil.e("xmh-picker","reset");
             //上传文件
             UploadUtil.uploadFile(mContext,currentSoundFile.getAbsolutePath(),null);
         }
@@ -76,7 +76,7 @@ public class SoundPicker {
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         // 设置声音编码的格式
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-        Log.e("xmh-picker","prepare");
+        LogUtil.e("xmh-picker","prepare");
     }
 
     /**开始录音*/
@@ -86,14 +86,14 @@ public class SoundPicker {
             mThread=new ControlThread();
         }
         mThread.start();
-        Log.e("xmh-picker","start");
+        LogUtil.e("xmh-picker","start");
     }
 
     /**停止录音*/
     public void stop() {
         isStarted =false;
         resetRecorder();
-        Log.e("xmh-picker","stop");
+        LogUtil.e("xmh-picker","stop");
     }
 
     /**控制线程*/
@@ -101,7 +101,7 @@ public class SoundPicker {
         @Override
         public void run() {
             super.run();
-            Log.e("xmh-picker","run");
+            LogUtil.e("xmh-picker","run");
             try {
                 while (isStarted) {
                     record();

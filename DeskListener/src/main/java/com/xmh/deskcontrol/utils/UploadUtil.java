@@ -22,7 +22,7 @@ public class UploadUtil {
         BmobFile.uploadBatch(context, pathArray, new UploadBatchListener() {
             @Override
             public void onSuccess(List<BmobFile> files, List<String> urls) {
-                Log.e("xmh-upload-array","success");
+                LogUtil.e("xmh-upload-array","success");
                 //上传完成后保存到bmob数据库
                 NotificationController.increaseUploadCount(files.size());
                 NotificationController.updateFileCount(pathArray.length-files.size());
@@ -47,19 +47,19 @@ public class UploadUtil {
 
             @Override
             public void onError(int i, String s) {
-                Log.e("xmh-upload-array","error:"+s);
+                LogUtil.e("xmh-upload-array","error:"+s);
             }
         });
     }
 
     /**上传video文件*/
     public static void uploadFile(final Context context, final String filePath, final UploadSuccessCallback callback){
-        Log.e("xmh-upload","upload");
+        LogUtil.e("xmh-upload","upload");
         final BmobFile bmobFile=new BmobFile(new File(filePath));
         bmobFile.uploadblock(context, new UploadFileListener() {
             @Override
             public void onSuccess() {
-                Log.e("xmh-upload-file","success");
+                LogUtil.e("xmh-upload-file","success");
                 //上传完成后保存到bmob数据库
                 FileBmobBean fileBmobBean = new FileBmobBean();
                 fileBmobBean.setSoundFile(bmobFile);
@@ -74,7 +74,7 @@ public class UploadUtil {
 
             @Override
             public void onFailure(int i, String s) {
-                Log.e("xmh-upload-file","fail:"+s);
+                LogUtil.e("xmh-upload-file","fail:"+s);
 
             }
         });
