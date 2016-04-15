@@ -5,11 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.xmh.deskcontrol.base.BaseService;
 import com.xmh.deskcontrol.biz.NotificationController;
 import com.xmh.deskcontrol.biz.SoundPicker;
+import com.xmh.deskcontrol.utils.LogUtil;
 
 /**
  * Created by xmh19 on 2016/2/5 005.

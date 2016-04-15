@@ -2,9 +2,9 @@ package com.xmh.deskcontrol.biz;
 
 import android.content.Context;
 import android.media.MediaRecorder;
-import android.util.Log;
 
 import com.xmh.deskcontrol.utils.FileUtil;
+import com.xmh.deskcontrol.utils.LogUtil;
 import com.xmh.deskcontrol.utils.UploadUtil;
 
 import java.io.File;

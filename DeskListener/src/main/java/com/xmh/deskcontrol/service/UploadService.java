@@ -2,11 +2,11 @@ package com.xmh.deskcontrol.service;
 
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.xmh.deskcontrol.base.BaseService;
 import com.xmh.deskcontrol.biz.NotificationController;
 import com.xmh.deskcontrol.utils.FileUtil;
+import com.xmh.deskcontrol.utils.LogUtil;
 import com.xmh.deskcontrol.utils.NetWorkUtil;
 import com.xmh.deskcontrol.utils.UploadUtil;
 
