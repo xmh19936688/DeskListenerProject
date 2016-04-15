@@ -49,15 +49,15 @@ public class NotificationController {
         view = new RemoteViews(context.getPackageName(), R.layout.layout_notification);
         //region set ui layout
         if(isRecordServiceStarted) {
-            view.setTextViewText(R.id.tv_going_left, "←");
-            view.setTextViewText(R.id.tv_going_right, "→");
+            view.setTextViewText(R.id.tv_going_left, mContext.getResources().getString(R.string.flag_record_started_left));
+            view.setTextViewText(R.id.tv_going_right,mContext.getResources().getString(R.string.flag_record_started_right));
         }else {
-            view.setTextViewText(R.id.tv_going_left, "-");
-            view.setTextViewText(R.id.tv_going_right, "-");
+            view.setTextViewText(R.id.tv_going_left, mContext.getResources().getString(R.string.flag_record_stoped));
+            view.setTextViewText(R.id.tv_going_right, mContext.getResources().getString(R.string.flag_record_started_left));
         }
         if(!isUploadServiceStarted) {
-            view.setTextViewText(R.id.tv_file_count, "·");
-            view.setTextViewText(R.id.tv_upload_count, "·");
+            view.setTextViewText(R.id.tv_file_count, mContext.getResources().getString(R.string.flag_upload_init));
+            view.setTextViewText(R.id.tv_upload_count, mContext.getResources().getString(R.string.flag_upload_init));
         }
         //endregion
         //region set view listener
@@ -137,11 +137,11 @@ public class NotificationController {
         }
         //更新通知UI
         if(isStarted) {
-            view.setTextViewText(R.id.tv_going_left, "←");
-            view.setTextViewText(R.id.tv_going_right, "→");
+            view.setTextViewText(R.id.tv_going_left, mContext.getResources().getString(R.string.flag_record_started_left));
+            view.setTextViewText(R.id.tv_going_right, mContext.getResources().getString(R.string.flag_record_started_right));
         }else {
-            view.setTextViewText(R.id.tv_going_left, "-");
-            view.setTextViewText(R.id.tv_going_right, "-");
+            view.setTextViewText(R.id.tv_going_left, mContext.getResources().getString(R.string.flag_record_stoped));
+            view.setTextViewText(R.id.tv_going_right, mContext.getResources().getString(R.string.flag_record_stoped));
         }
         updateNotification();
     }
@@ -156,8 +156,8 @@ public class NotificationController {
         }
         //更新通知UI
         if(!isStarted) {
-            view.setTextViewText(R.id.tv_file_count, "√");
-            view.setTextViewText(R.id.tv_upload_count, "√");
+            view.setTextViewText(R.id.tv_file_count, mContext.getResources().getString(R.string.flag_upload_finish));
+            view.setTextViewText(R.id.tv_upload_count, mContext.getResources().getString(R.string.flag_upload_finish));
             updateNotification();
         }
     }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">※※</string>
+    <string name="flag_upload_init">·</string>
+    <string name="flag_upload_finish">√</string>
+    <string name="flag_record_started_left">《</string>
+    <string name="flag_record_started_right">》</string>
+    <string name="flag_record_stoped">—</string>
 </resources>

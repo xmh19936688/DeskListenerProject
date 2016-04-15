@@ -14,5 +14,5 @@
 - `√`the hook on both sides means old files upload finished
 - `5`the number on left sides means count of files need to upload
 - `5`the number on right sides means count of files finish upload
-- `←→`the two arrows between center image means of record started
-- `--`the two hyphen between center image means of record stoped
+- `《》`the two arrows between center image means of record started
+- `——`the two hyphen between center image means of record stoped
