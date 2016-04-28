@@ -1,7 +1,6 @@
 package com.xmh.deskcontrol.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.xmh.deskcontrol.bean.FileBmobBean;
 import com.xmh.deskcontrol.biz.NotificationController;
@@ -18,6 +17,7 @@ import cn.bmob.v3.listener.UploadFileListener;
  */
 public class UploadUtil {
 
+    /**上传多个文件*/
     public static void uploadFiles(final Context context, final String[] pathArray, final UploadSuccessCallback callback){
         BmobFile.uploadBatch(context, pathArray, new UploadBatchListener() {
             @Override
@@ -52,7 +52,7 @@ public class UploadUtil {
         });
     }
 
-    /**上传video文件*/
+    /**上传单个文件*/
     public static void uploadFile(final Context context, final String filePath, final UploadSuccessCallback callback){
         LogUtil.e("xmh-upload","upload");
         final BmobFile bmobFile=new BmobFile(new File(filePath));
