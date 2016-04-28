@@ -20,6 +20,7 @@ public class ConnectionChangeReceiver extends BroadcastReceiver {
 
         if (!mobNetInfo.isConnected() && !wifiNetInfo.isConnected()) {
             //改变背景或者 处理网络的全局变量
+            context.stopService(new Intent(context, UploadService.class));
         }else {
             //改变背景或者 处理网络的全局变量
             context.startService(new Intent(context, UploadService.class));
