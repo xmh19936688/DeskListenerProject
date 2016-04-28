@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -41,7 +42,11 @@ public class NotificationController {
         if(mBuilder==null){
             initNotification(context);
         }
-        return  mBuilder.build();
+        Notification notification = mBuilder.build();
+        if(Build.VERSION.SDK_INT >= 16){
+            notification.bigContentView = view;
+        }
+        return notification;
     }
 
     /**初始化通知*/
@@ -117,7 +122,11 @@ public class NotificationController {
         }
         mBuilder.setContent(view);
         NotificationManager manager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(NOTIFICATION_ID, mBuilder.build());
+        Notification notification = mBuilder.build();
+        if(Build.VERSION.SDK_INT >= 16){
+            notification.bigContentView = view;
+        }
+        manager.notify(NOTIFICATION_ID, notification);
     }
 
     /**取消通知*/
